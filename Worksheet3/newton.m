@@ -10,4 +10,9 @@ while(i<maxI && epsilon>minEps)
     x_0=x;
     i=i+1;
 end
+
+if(i>=maxI)
+    disp(['warning: maximum number of iterations=', maxI,' has been reached. Relative Error ε=',epsilon, " > ", minEps]);
+end
+
 end
