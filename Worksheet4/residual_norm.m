@@ -1,12 +1,15 @@
 function r = residual_norm(N_x, N_y, b, x)
-h2_x = (1/(N_x+1))^2;
-h2_y = (1/(N_y+1))^2;
-d = -2/h2_x-2/h2_y;
-c = 1/h2_y;
-e = 1/h2_x;
+N = N_x*N_y;
 sum = 0;
-for k=0:N_x*N_y
-    sum = sum + (b(k)-(mod(k+1,N_x+1)>0)*c*x(k)
-    %% TODO
+for k=0:N
+    internal_sum = 0;
+    for m=0:N
+        if mod(m,N_x) = 0
+           continue 
+        end
+        internal_sum = internal_sum + a(k,m,N_x,N_y)*x(m);
+    end
+    sum = sum + (b(k) - internal_sum)^2;
 end
+r = sqrt(1/N*sum);
 end
