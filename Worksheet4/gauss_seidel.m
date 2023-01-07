@@ -6,14 +6,14 @@ c = 1/h2_y;
 e = 1/h2_x;
 rnorm = inf;
 N = N_x*N_y;
-x = zeros(1,N);
+x = zeros(N,1);
 j=0;
-while rnorm > 1e-3 && j<10
+while rnorm > 1e-3 && j<1000
     j=j+1;
     for i=1:N
         sum=0;
         if(i>N_x+1)
-        sum=sum+e*x(i-N_x-1);
+        sum=sum+e*x(i-N_x);
         end
         if(i>1 && mod(i,N_x)~=1) 
         sum=sum+c*x(i-1);
@@ -22,11 +22,11 @@ while rnorm > 1e-3 && j<10
         sum=sum+c*x(i+1);
         end
         if(i<N-N_x-1)
-        sum=sum+e*x(i+N_x+1);
+        sum=sum+e*x(i+N_x);
         end
         x(i) = 1/d*(b(i)-sum);
     end
-    disp(reshape(x,3,3));
-    rnorm=residual_norm(N_x, N_y, b, x)
+    rnorm=residual_norm(N_x, N_y, b, x);
 end
+x = reshape(x, N_x, N_y);
 end
