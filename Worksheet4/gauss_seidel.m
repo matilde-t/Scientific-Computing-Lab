@@ -8,11 +8,11 @@ rnorm = inf;
 N = N_x*N_y;
 x = zeros(N,1);
 j=0;
-while rnorm > 1e-3 && j<1000
+while rnorm > 1e-3
     j=j+1;
     for i=1:N
         sum=0;
-        if(i>N_x+1)
+        if(i>N_x)
         sum=sum+e*x(i-N_x);
         end
         if(i>1 && mod(i,N_x)~=1) 
@@ -21,12 +21,14 @@ while rnorm > 1e-3 && j<1000
         if(i<N&& mod(i,N_x)~=0)
         sum=sum+c*x(i+1);
         end
-        if(i<N-N_x-1)
+        if(i<N-N_x)
         sum=sum+e*x(i+N_x);
         end
         x(i) = 1/d*(b(i)-sum);
     end
     rnorm=residual_norm(N_x, N_y, b, x);
 end
+j
+rnorm
 x = reshape(x, N_x, N_y);
 end
